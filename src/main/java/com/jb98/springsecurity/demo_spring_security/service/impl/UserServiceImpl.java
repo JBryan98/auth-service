@@ -112,7 +112,8 @@ public class UserServiceImpl implements IUserService {
         }
         rqMapper.updateEntity(request, user);
         // Only admin users can update roles
-        if (user.isAdmin()) {
+        var currentUser = findCurrentUser();
+        if (currentUser.admin()) {
             populateUserRoles(user, request.roleIds());
         }
         repository.save(user);

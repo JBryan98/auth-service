@@ -25,6 +25,7 @@ application:
         - POST
         - PUT
         - DELETE
+        - PATCH
         - OPTIONS
       allowed-headers:
         - Content-Type

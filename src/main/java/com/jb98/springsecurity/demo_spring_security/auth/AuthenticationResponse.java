@@ -7,6 +7,7 @@ public record AuthenticationResponse(
         Profile profile
 ) {
     protected record Profile(
+            Long id,
             String email,
             String firstName,
             String lastName,

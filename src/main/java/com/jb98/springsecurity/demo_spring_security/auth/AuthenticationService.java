@@ -35,6 +35,7 @@ public class AuthenticationService {
         return new AuthenticationResponse(
                 jwtToken,
                 new AuthenticationResponse.Profile(
+                        user.getId(),
                         user.getEmail(),
                         user.getFirstName(),
                         user.getLastName(),
