@@ -1,27 +1,27 @@
-name: spring-security-demo-infra
+name: auth-service-infra
 
 services:
   postgres:
     image: mysql:8
     restart: unless-stopped
-    container_name: spring-security-demo-mysql
+    container_name: auth_db_mysql
     environment:
-      MYSQL_DATABASE: spring_security_app
-      MYSQL_USER: root
-      MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: auth_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: admin123
     ports:
       - "3307:3306"
     volumes:
       - ./volumes/db/mysql:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -padmin --silent"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -padmin123 --silent"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - demo-spring-security-network
+      - auth-service-network
 
 networks:
-  demo-spring-security-network:
+  auth-service-network:
     driver: bridge

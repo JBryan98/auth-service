@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3307/spring_security_app
-    username: root
-    password: admin
+    url: jdbc:mysql://localhost:3307/auth_db
+    username: admin
+    password: admin123
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database: mysql
@@ -11,9 +11,11 @@ spring:
     show-sql: true
 application:
   security:
+    refresh-token:
+      expiration-days: 7
     jwt:
       secret-key: bdf30e209bffe51f26ccb84854ed39d221f1628e3c0e2972eef4a0077a6be290
-      expiration: 8640000
+      expiration: 300000
     cors:
       allowed-origins:
         - http://localhost:3000

@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.0</version>
+		<version>4.2.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.jb98.springsecurity</groupId>
-	<artifactId>demo-spring-security</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>demo-spring-security</name>
-	<description>Demo project for Spring Boot 4 and Spring Security 7</description>
+	<groupId>com.jbryan98</groupId>
+	<artifactId>auth-service</artifactId>
+	<version>1.0.0</version>
+	<name>auth-service</name>
+	<description>Jwt based authentication</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -31,7 +31,7 @@
 		<mapstruct.version>1.6.3</mapstruct.version>
 		<lombokMapstruct.version>0.2.0</lombokMapstruct.version>
 		<jsonWebToken.version>0.13.0</jsonWebToken.version>
-		<swagger.version>3.0.0</swagger.version>
+		<swagger.version>3.2.1</swagger.version>
 	</properties>
 	<dependencies>
 		<dependency>

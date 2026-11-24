@@ -1,7 +1,7 @@
-# Demo application for Spring Security
+# Auth Service
 
-This project is a demo application for Spring Security, the main purpose of this project is to demonstrate how to use
-Spring Security in a simple web application.
+This project supports authentication and authorization using Spring Security and Json Web Tokens(JWT).
+The main purpose of this project is to work as a template for other projects that require authentication and authorization.
 
 # Technologies used
 
@@ -27,13 +27,13 @@ To run the application, you need to have Java 25, MySQL and Maven installed on y
 1. Clone the repository
 
 ````bash
- git clone https://github.com/JBryan98/demo-spring-security
+ git clone https://github.com/JBryan98/auth-service
 ````
 
-2. On your MySQL database, create a database named `spring_security_app`
+2. Run the docker compose command to start the MySQL database.
 
-````sql
-CREATE DATABASE spring_security_app;
+````
+docker compose up -d
 ````
 
 3. Customize the database connection settings in the `src/main/resources/application-dev.yml` file. The default
@@ -42,9 +42,9 @@ CREATE DATABASE spring_security_app;
 ````yml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3307/spring_security_app
-    username: root
-    password: admin
+    url: jdbc:mysql://localhost:3307/auth_db
+    username: admin
+    password: admin123
 ````
 
 4. Run the application using Maven or your IDE like IntelliJ IDEA or Eclipse
@@ -66,4 +66,4 @@ mvn spring-boot:run
 6. To access the Swagger UI, open your browser and navigate to `http://localhost:8080/api/v1/swagger-ui/index.html`.
    Here is a preview.
 
-<img src="https://i.imgur.com/a0U1RnT.png" alt="Swagger UI">
+<img src="https://i.imgur.com/DHMCebV.png" alt="Swagger UI">
