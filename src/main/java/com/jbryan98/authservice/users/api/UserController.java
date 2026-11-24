@@ -6,6 +6,7 @@ import com.jbryan98.authservice.users.api.dto.RestoreUserPasswordRequest;
 import com.jbryan98.authservice.users.api.dto.UpdateUserRequest;
 import com.jbryan98.authservice.users.api.dto.UserResponse;
 import com.jbryan98.authservice.users.application.UserService;
+import com.jbryan98.authservice.users.application.filter.UserFilter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -39,8 +40,11 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     @Operation(summary = "Get a list of paginated users.")
-    public ResponseEntity<Page<UserResponse>> findAll(@ParameterObject @PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(service.findAll(pageable));
+    public ResponseEntity<Page<UserResponse>> findAll(
+            @ParameterObject @PageableDefault Pageable pageable,
+            @ParameterObject UserFilter filter
+    ) {
+        return ResponseEntity.ok(service.findAll(pageable, filter));
     }
 
     @GetMapping("/{id}")

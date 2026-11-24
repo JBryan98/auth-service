@@ -10,6 +10,7 @@ import com.jbryan98.authservice.users.api.dto.UserResponse;
 import com.jbryan98.authservice.users.api.mapper.UserMapper;
 import com.jbryan98.authservice.users.application.RoleService;
 import com.jbryan98.authservice.users.application.UserService;
+import com.jbryan98.authservice.users.application.filter.UserFilter;
 import com.jbryan98.authservice.users.domain.entity.Role;
 import com.jbryan98.authservice.users.domain.entity.RoleName;
 import com.jbryan98.authservice.users.domain.entity.User;
@@ -21,10 +22,7 @@ import com.jbryan98.authservice.users.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -35,13 +33,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -56,35 +50,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<UserResponse> findAll(Pageable pageable) {
-        log.info("findAll pageable {}", pageable);
-        // This sort is mandatory because the query (findAllIdsOnly) is using a native query and the order of the results is not guaranteed without an explicit sort.
-        if (pageable.getSort().isUnsorted()) {
-            pageable = PageRequest.of(
-                    pageable.getPageNumber(),
-                    pageable.getPageSize(),
-                    Sort.by("id").ascending()
-            );
-        }
-        var pageOfIds = repository.findAllIdsOnly(pageable);
-        var userIds = pageOfIds.getContent();
-        if (userIds.isEmpty()) {
-            return new PageImpl<>(Collections.emptyList(), pageable, pageOfIds.getTotalElements());
-        }
-        var users = repository.findByIdIn(Set.copyOf(userIds));
-        var userMap = users.stream()
-                .collect(Collectors.toMap(User::getId, Function.identity()));
-
-        var requestedUsers = userIds.stream()
-                .map(userMap::get)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(
-                mapper.toResponse(requestedUsers),
-                pageable,
-                pageOfIds.getTotalElements()
-        );
+    public Page<UserResponse> findAll(Pageable pageable, UserFilter filter) {
+        log.info("findAll pageable: {} filter: {}", pageable, filter);
+        return repository.findAll(pageable, filter).map(mapper::toResponse);
     }
 
     @Override

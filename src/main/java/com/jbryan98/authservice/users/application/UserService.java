@@ -6,6 +6,7 @@ import com.jbryan98.authservice.users.api.dto.CreateUserRequest;
 import com.jbryan98.authservice.users.api.dto.RestoreUserPasswordRequest;
 import com.jbryan98.authservice.users.api.dto.UpdateUserRequest;
 import com.jbryan98.authservice.users.api.dto.UserResponse;
+import com.jbryan98.authservice.users.application.filter.UserFilter;
 import com.jbryan98.authservice.users.domain.entity.User;
 import com.jbryan98.authservice.users.domain.exception.ChangePasswordException;
 import com.jbryan98.authservice.users.domain.exception.DuplicatedEmailException;
@@ -22,9 +23,10 @@ public interface UserService {
      * Returns a paginated list of users.
      *
      * @param pageable pagination information
+     * @param filter  user filter criteria
      * @return page of UserResponse
      */
-    Page<UserResponse> findAll(Pageable pageable);
+    Page<UserResponse> findAll(Pageable pageable, UserFilter filter);
 
     /**
      * Finds an user by its id.
