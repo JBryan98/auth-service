@@ -9,6 +9,7 @@ public record UserResponse(
         String username,
         String fullName,
         boolean admin,
+        boolean enabled,
         List<RoleResponse> roles
 ) {
 }
