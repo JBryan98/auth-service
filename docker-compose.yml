@@ -1,10 +1,9 @@
 name: auth-service-infra
 
 services:
-  postgres:
+  auth_db_mysql:
     image: mysql:8
     restart: unless-stopped
-    container_name: auth_db_mysql
     environment:
       MYSQL_DATABASE: auth_db
       MYSQL_USER: admin
@@ -15,7 +14,7 @@ services:
     volumes:
       - ./volumes/db/mysql:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -padmin123 --silent"]
+      test: ["CMD-SHELL", "MYSQL_PWD=$$MYSQL_ROOT_PASSWORD mysqladmin ping -h 127.0.0.1 -u root --silent"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -24,4 +23,5 @@ services:
 
 networks:
   auth-service-network:
+    name: auth-service-network
     driver: bridge
