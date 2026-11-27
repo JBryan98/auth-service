@@ -13,6 +13,10 @@ application:
   security:
     refresh-token:
       expiration-days: 7
+      cookie-secure: true
+      cookie-same-site: Lax
+      cookie-path: /
+      cookie-domain: ""
     jwt:
       secret-key: bdf30e209bffe51f26ccb84854ed39d221f1628e3c0e2972eef4a0077a6be290
       expiration: 300000
